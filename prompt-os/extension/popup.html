@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:360px;font-family:-apple-system,sans-serif;background:#0f172a;color:#e2e8f0;font-size:13px}
+header{padding:12px 16px;background:#1e293b;display:flex;align-items:center;justify-content:space-between}
+header h1{font-size:15px;font-weight:700;color:#7c3aed}
+header span{font-size:11px;color:#64748b}
+.tabs{display:flex;background:#1e293b;border-bottom:1px solid #334155}
+.tab{flex:1;padding:8px;text-align:center;cursor:pointer;color:#64748b;font-size:12px}
+.tab.active{color:#7c3aed;border-bottom:2px solid #7c3aed}
+.section{padding:12px 16px;display:none;max-height:480px;overflow-y:auto}
+.section.active{display:block}
+.card{background:#1e293b;border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.meta{color:#64748b;font-size:11px;margin-top:4px}
+.stars{display:flex;gap:3px;margin-top:6px}
+.star{cursor:pointer;font-size:16px;color:#334155;transition:color .15s}
+.star.on{color:#f59e0b}
+.score-badge{display:inline-block;padding:2px 7px;border-radius:99px;font-size:11px;font-weight:600}
+.score-a{background:#166534;color:#bbf7d0}
+.score-b{background:#713f12;color:#fef3c7}
+.score-c{background:#7f1d1d;color:#fecaca}
+.stat-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #334155}
+.stat-val{font-weight:600;color:#a78bfa}
+.chip{display:inline-block;padding:2px 8px;border-radius:99px;background:#312e81;color:#c7d2fe;font-size:11px;margin:2px}
+.tip{background:#172554;border-left:3px solid #3b82f6;padding:6px 10px;border-radius:4px;margin-top:6px;font-size:12px;color:#93c5fd}
+.tpl-card{background:#1e293b;border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.tpl-text{font-family:monospace;font-size:12px;color:#a78bfa;margin-top:4px}
+.btn{padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px;border:none}
+.btn-primary{background:#7c3aed;color:#fff}
+input,textarea{width:100%;background:#0f172a;border:1px solid #334155;border-radius:6px;padding:6px 8px;color:#e2e8f0;font-size:12px;margin-top:4px;outline:none}
+label{color:#94a3b8;font-size:11px}
+.empty{color:#475569;text-align:center;padding:24px 0;font-size:12px}
+</style>
+</head>
+<body>
+<header><h1>&#x1F9E0; Prompt OS</h1><span id="srv">Checking...</span></header>
+<div class="tabs">
+  <div class="tab active" data-tab="recent">Recent</div>
+  <div class="tab" data-tab="stats">Analytics</div>
+  <div class="tab" data-tab="templates">Templates</div>
+</div>
+<div class="section active" id="tab-recent">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+    <span style="color:#94a3b8;font-size:11px">Recent prompts</span>
+    <button id="delete-all" style="background:#7f1d1d;color:#fecaca;border:none;border-radius:6px;padding:3px 10px;font-size:11px;cursor:pointer">
+      🗑 Delete all
+    </button>
+  </div>
+  <div id="recent-list"><p class="empty">Loading...</p></div>
+</div>
+<div class="section" id="tab-stats"><div id="stats-content"><p class="empty">Loading...</p></div></div>
+<div class="section" id="tab-templates">
+  <div id="tpl-list"><p class="empty">Loading...</p></div>
+  <hr style="border-color:#334155;margin:10px 0">
+  <div class="card">
+    <label>Title</label><input id="tpl-title" placeholder="e.g. Code review request">
+    <label>Category</label><input id="tpl-cat" placeholder="coding / writing / research ...">
+    <label>Template body</label>
+    <textarea id="tpl-body" rows="3" placeholder="Implement {{feature}} in {{language}}."></textarea>
+    <div style="margin-top:8px"><button class="btn btn-primary" id="tpl-save">Save</button></div>
+  </div>
+</div>
+<script src="popup.js"></script>
+</body>
+</html>

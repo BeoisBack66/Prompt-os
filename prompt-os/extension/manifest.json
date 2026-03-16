@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Prompt OS",
+  "version": "2.0.0",
+  "description": "Automatically capture, analyze, and templatize your AI prompts",
+  "permissions": ["storage", "scripting", "activeTab"],
+  "host_permissions": ["https://chatgpt.com/*", "https://claude.ai/*", "http://localhost/*", "http://127.0.0.1/*"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [{
+    "matches": ["https://chatgpt.com/*", "https://claude.ai/*"],
+    "js": ["content.js"],
+    "run_at": "document_idle"
+  }],
+  "action": { "default_title": "Prompt OS", "default_popup": "popup.html" }
+}
