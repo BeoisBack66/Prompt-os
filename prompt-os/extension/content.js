@@ -21,7 +21,7 @@
 
   function send(text) {
     const now = Date.now();
-    // 동일 텍스트이거나 2초 이내 재전송이면 무시 (중복 방지)
+    // Skip if same text or sent within the last 2 seconds (duplicate prevention)
     if (!text || text === lastSent || now - lastSentTime < 2000) return;
     lastSent     = text;
     lastSentTime = now;
@@ -35,7 +35,7 @@
     });
   }
 
-  // textarea에 MutationObserver 연결 — 비워지면 전송
+  // Attach MutationObserver to textarea — triggers send when cleared
   function attachObserver(el) {
     if (taObserver) taObserver.disconnect();
     currentEl  = el;
@@ -51,17 +51,17 @@
     taObserver.observe(el, { childList: true, subtree: true, characterData: true });
   }
 
-  // SPA 네비게이션 대응: textarea가 교체될 때마다 재연결
+  // SPA navigation support: re-attach observer whenever textarea is replaced
   new MutationObserver(() => {
     const el = document.querySelector(s.textarea);
     if (el && el !== currentEl) attachObserver(el);
   }).observe(document.body, { childList: true, subtree: true });
 
-  // 초기 연결
+  // Initial attach
   const initial = document.querySelector(s.textarea);
   if (initial) attachObserver(initial);
 
-  // Enter 키 전송 감지
+  // Detect Enter key submission
   document.addEventListener("keydown", e => {
     if (e.key !== "Enter" || e.shiftKey) return;
     const a = document.activeElement;
